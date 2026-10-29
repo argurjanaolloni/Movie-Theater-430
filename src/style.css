@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #e4e8ff;
+  font-family: Arial, sans-serif;
+
+  background: linear-gradient(
+    to bottom,
+    #0b0c26 0%,
+    #29204d 25%,
+    #56316e 48%,
+    #98519c 75%,
+    #b18bcf 100%
+  );
+
+  background-attachment: fixed;
+
+  background:
+    linear-gradient(rgba(11, 12, 38, 0.25), rgba(11, 12, 38, 0.55)),
+    url("/midnight.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Navigation */
+
+.navbar {
+  background: rgba(11, 12, 38, 0.8);
+  backdrop-filter: blur(12px);
+  padding: 25px 8%;
+
+  display: flex;
+  align-items: center;
+  gap: 40px;
+
+  border-bottom: 1px solid #b18bcf;
+}
+
+header {
+  text-align: center;
+}
+
+.navbar h1 {
+  color: #b18bcf;
+  margin: 0;
+  letter-spacing: 3px;
+}
+
+.navbar a {
+  color: #e4e8ff;
+  text-decoration: none;
+}
+
+/* Main section */
+
+main {
+  max-width: 1500px;
+  margin: auto;
+  padding: 50px 30px;
+  text-align: center;
+}
+
+main h2 {
+  font-size: 30px;
+  color: #e4e8ff;
+  text-align: center;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #b18bcf;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Movie grid */
+
+.movie-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+/* Movie cards */
+
+.movie-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+}
+
+.movie-card h3 {
+  margin: 14px 0 5px;
+  color: #e4e8ff;
+}
+
+.movie-card p {
+  color: #b18bcf;
+  margin: 5px 0 15px;
+}
+
+/* Buttons */
+
+.movie-card button {
+  background: #b18bcf;
+  color: #0b0c26;
+
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+}
+
+.movie-card button:hover {
+  background: #98519c;
+}
+
+/* Selected movie */
+
+.selection {
+  background: rgba(41, 32, 77, 0.8);
+  border: 1px solid #b18bcf;
+  border-radius: 12px;
+
+  padding: 20px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Mobile */
+
+@media (max-width: 900px) {
+  .movie-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .navbar {
+    padding: 20px;
+    gap: 20px;
+  }
+}
