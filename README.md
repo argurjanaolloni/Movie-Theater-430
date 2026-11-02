@@ -2,6 +2,7 @@
 website right now:
 <img width="1882" height="1007" alt="image" src="https://github.com/user-attachments/assets/5b27d36c-7f61-42a6-a592-e1337892057d" />
 
+<img width="1910" height="1025" alt="image" src="https://github.com/user-attachments/assets/6366fcae-2c79-447f-83fa-4401afecbf93" />
 
 
 
