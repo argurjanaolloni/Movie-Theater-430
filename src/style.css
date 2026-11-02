@@ -5,81 +5,61 @@
 body {
   margin: 0;
   min-height: 100vh;
-  color: #e4e8ff;
+  background-color: #060606;
+  color: #ffffff;
   font-family: Arial, sans-serif;
-
-  background: linear-gradient(
-    to bottom,
-    #0b0c26 0%,
-    #29204d 25%,
-    #56316e 48%,
-    #98519c 75%,
-    #b18bcf 100%
-  );
-
-  background-attachment: fixed;
-
-  background:
-    linear-gradient(rgba(11, 12, 38, 0.25), rgba(11, 12, 38, 0.55)),
-    url("/midnight.jpg");
-
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
 }
 
 /* Navigation */
 
 .navbar {
-  background: rgba(11, 12, 38, 0.8);
-  backdrop-filter: blur(12px);
+  background-color: #060606;
   padding: 25px 8%;
-
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 
-  border-bottom: 1px solid #b18bcf;
-}
-
-header {
-  text-align: center;
+  border-top: 5px solid #8a1e1e;
+  border-bottom: 1px solid #080808;
 }
 
 .navbar h1 {
-  color: #b18bcf;
+  color: #8a1e1e;
   margin: 0;
   letter-spacing: 3px;
 }
 
 .navbar a {
-  color: #e4e8ff;
+  color: #ffffff;
   text-decoration: none;
 }
 
-/* Main section */
+.navbar a:hover {
+  color: #60a5fa;
+}
+
+/* Main Section */
 
 main {
   max-width: 1500px;
   margin: auto;
   padding: 50px 30px;
-  text-align: center;
+  text-align: left;
 }
 
 main h2 {
   font-size: 30px;
-  color: #e4e8ff;
-  text-align: center;
+  color: #ffffff;
+  text-align: left;
 }
 
 hr {
   border: none;
-  border-top: 1px solid #b18bcf;
+  border-top: 1px solid #444444;
   margin-bottom: 30px;
-  text-align: center;
 }
 
-/* Movie grid */
+/* Movie Grid */
 
 .movie-list {
   display: grid;
@@ -87,53 +67,130 @@ hr {
   gap: 20px;
 }
 
-/* Movie cards */
+/* Movie Cards */
+
+.movie-card {
+  background-color: transparent;
+}
 
 .movie-card img {
   width: 100%;
   aspect-ratio: 2 / 3;
   object-fit: cover;
+  border-radius: 3px;
 }
 
 .movie-card h3 {
   margin: 14px 0 5px;
-  color: #e4e8ff;
+  color: #ffffff;
+  font-size: 20px;
 }
 
 .movie-card p {
-  color: #b18bcf;
+  color: #bbbbbb;
   margin: 5px 0 15px;
+  font-size: 14px;
 }
 
-/* Buttons */
+/* Movie Buttons */
 
 .movie-card button {
-  background: #b18bcf;
-  color: #0b0c26;
+  background-color: #8a1e1e;
+  color: #ffffff;
 
   border: none;
   padding: 12px;
-  border-radius: 6px;
+  border-radius: 10px;
 
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .movie-card button:hover {
-  background: #98519c;
+  background-color: #2563eb;
 }
 
-/* Selected movie */
+/* Selected Movie */
 
 .selection {
-  background: rgba(41, 32, 77, 0.8);
-  border: 1px solid #b18bcf;
-  border-radius: 12px;
+  background-color: #141414;
+  border: 1px solid #333333;
+  padding: 30px;
+  margin-top: 50px;
+  text-align: left;
+}
 
-  padding: 20px;
-  margin-top: 40px;
-  text-align: center;
+.selection > h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin: 0 0 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #333333;
+}
+
+.selection-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 35px;
+}
+
+.selection-content img {
+  width: 190px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.selection-details {
+  flex: 1;
+  text-align: left;
+}
+
+.selection-details h2 {
+  font-size: 28px;
+  color: #ffffff;
+  margin: 0 0 10px;
+  text-align: left;
+}
+
+.selection-details p {
+  color: #aaaaaa;
+  font-size: 15px;
+}
+
+.selection-details h3 {
+  color: #ffffff;
+  font-size: 17px;
+  margin-top: 25px;
+}
+
+.selection-details hr {
+  border: none;
+  border-top: 1px solid #333333;
+  margin: 25px 0;
+}
+
+/* Showtime Buttons */
+
+.selection button {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border: 1px solid #1e40af;
+
+  padding: 12px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: auto;
+  margin: 5px 8px 5px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.selection button:hover {
+  background-color: #2563eb;
+  border-color: #60a5fa;
 }
 
 /* Mobile */
@@ -146,5 +203,20 @@ hr {
   .navbar {
     padding: 20px;
     gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .selection {
+    padding: 20px;
+  }
+
+  .selection-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .selection-content img {
+    width: 150px;
   }
 }

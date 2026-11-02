@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./style.css";
-import "components/ShowtimeSelection.jsx";
-import ShowtimeSelection from "components/ShowtimeSelection.jsx";
+import "./App.css";
+import ShowtimeSelection from "./components/ShowtimeSelection.jsx";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -74,14 +74,14 @@ function App() {
       </header>
 
       <main id="movies">
-        <hr />
-
         <div className="movie-list">
           {movies.map((movie) => (
             <div className="movie-card" key={movie.id}>
               <img src={movie.poster} alt={movie.title} />
+              <h3>{movie.title}</h3>
+              <p>{movie.genre}</p>
 
-              <button onClick={() => setSelectedMovie(movie)}>
+              <button onClick={() => setSelectedMovie(movie)} href="#selection">
                 {selectedMovie?.id === movie.id ? "Selected" : "Get Tickets"}
               </button>
             </div>
@@ -90,8 +90,22 @@ function App() {
 
         {selectedMovie && (
           <div className="selection">
-            <h2>Selected: {selectedMovie.title}</h2>
-            <ShowtimeSelection showtimes={selectedMovie.showtimes} />
+            <h2>Select a Showtime</h2>
+
+            <div className="selection-content">
+              <img src={selectedMovie.poster} alt={selectedMovie.title} />
+
+              <div className="selection-details">
+                <h2>{selectedMovie.title}</h2>
+                <p>{selectedMovie.genre}</p>
+
+                <hr />
+
+                <h3>Available Times</h3>
+
+                <ShowtimeSelection movie={selectedMovie} />
+              </div>
+            </div>
           </div>
         )}
       </main>
