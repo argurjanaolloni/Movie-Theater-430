@@ -64,6 +64,13 @@ function App() {
       poster: "https://image.tmdb.org/t/p/w500/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg",
       showtimes: ["1:00 PM", "4:00 PM", "7:00 PM"],
     },
+    {
+      id: 9,
+      title: "The Grand Budapest Hotel",
+      genre: "Comedy",
+      poster: "https://image.tmdb.org/t/p/w500/nX5XotM9yprCKarRH4fzOq1VM1J.jpg",
+      showtimes: ["1:00 PM", "4:00 PM", "7:00 PM"],
+    },
   ];
 
   return (
