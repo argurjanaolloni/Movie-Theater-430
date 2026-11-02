@@ -41,10 +41,11 @@ body {
 /* Main Section */
 
 main {
-  max-width: 1500px;
-  margin: auto;
-  padding: 50px 30px;
+  width:auto;
   text-align: left;
+  display: flex;
+  flex-direction: row;
+  gap:5px;
 }
 
 main h2 {
@@ -63,8 +64,9 @@ hr {
 
 .movie-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  background-color: #444444;
 }
 
 /* Movie Cards */
@@ -117,9 +119,11 @@ hr {
 .selection {
   background-color: #141414;
   border: 1px solid #333333;
-  padding: 30px;
-  margin-top: 50px;
+  width:40%;
+  padding: 20px;
   text-align: left;
+  display:flex;
+  flex-direction: column;
 }
 
 .selection > h2 {

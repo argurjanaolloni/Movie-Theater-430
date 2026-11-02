@@ -82,40 +82,40 @@ function App() {
       </header>
 
       <main id="movies">
-        <div className="movie-list">
-          {movies.map((movie) => (
-            <div className="movie-card" key={movie.id}>
-              <img src={movie.poster} alt={movie.title} />
-              <h3>{movie.title}</h3>
-              <p>{movie.genre}</p>
+          <div className="movie-list">
+            {movies.map((movie) => (
+              <div className="movie-card" key={movie.id}>
+                <img src={movie.poster} alt={movie.title} />
+                <h3>{movie.title}</h3>
+                <p>{movie.genre}</p>
 
-              <button onClick={() => setSelectedMovie(movie)} href="#selection">
-                {selectedMovie?.id === movie.id ? "Selected" : "Get Tickets"}
-              </button>
-            </div>
-          ))}
-        </div>
+                <button onClick={() => setSelectedMovie(movie)} href="#selection">
+                  {selectedMovie?.id === movie.id ? "Selected" : "Get Tickets"}
+                </button>
+              </div>
+            ))}
+          </div>
 
-        {selectedMovie && (
-          <div className="selection">
-            <h2>Select a Showtime</h2>
+          {selectedMovie && (
+            <div className="selection">
+              <h2>Select a Showtime</h2>
 
-            <div className="selection-content">
-              <img src={selectedMovie.poster} alt={selectedMovie.title} />
+              <div className="selection-content">
+                <img src={selectedMovie.poster} alt={selectedMovie.title} />
 
-              <div className="selection-details">
-                <h2>{selectedMovie.title}</h2>
-                <p>{selectedMovie.genre}</p>
+                <div className="selection-details">
+                  <h2>{selectedMovie.title}</h2>
+                  <p>{selectedMovie.genre}</p>
 
-                <hr />
+                  <hr />
 
-                <h3>Available Times</h3>
+                  <h3>Available Times</h3>
 
-                <ShowtimeSelection movie={selectedMovie} />
+                  <ShowtimeSelection movie={selectedMovie} />
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
       </main>
     </div>
   );
