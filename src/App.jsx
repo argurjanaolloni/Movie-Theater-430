@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./style.css";
+import "components/ShowtimeSelection.jsx";
+import ShowtimeSelection from "components/ShowtimeSelection.jsx";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -89,6 +91,7 @@ function App() {
         {selectedMovie && (
           <div className="selection">
             <h2>Selected: {selectedMovie.title}</h2>
+            <ShowtimeSelection showtimes={selectedMovie.showtimes} />
           </div>
         )}
       </main>
