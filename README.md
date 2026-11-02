@@ -1,4 +1,9 @@
 # Movie-Theater-430
+website right now:
+<img width="1882" height="1007" alt="image" src="https://github.com/user-attachments/assets/5b27d36c-7f61-42a6-a592-e1337892057d" />
+
+
+
 
 Link to our website:
 [https://splendorous-gaufre-77e1d1.netlify.app](https://splendorous-gaufre-77e1d1.netlify.app)
