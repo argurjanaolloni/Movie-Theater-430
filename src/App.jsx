@@ -5,6 +5,7 @@ import ShowtimeSelection from "./components/ShowtimeSelection.jsx";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
 
   const movies = [
     {
@@ -111,7 +112,15 @@ function App() {
 
                 <h3>Available Times</h3>
 
-                <ShowtimeSelection movie={selectedMovie} />
+                <ShowtimeSelection
+                  movie={selectedMovie}
+                  onSelectTime={setSelectedTime}
+                />
+                {selectedTime && (
+                  <p>
+                    You have selected {selectedTime} for {selectedMovie.title}.
+                  </p>
+                )}
               </div>
             </div>
           </div>
