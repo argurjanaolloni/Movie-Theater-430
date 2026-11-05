@@ -2,8 +2,11 @@ import { useState } from "react";
 import "./style.css";
 import "./App.css";
 import ShowtimeSelection from "./components/ShowtimeSelection.jsx";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import SeatSelection from "./components/SeatSelection.jsx";
 
 function App() {
+  const navigate = useNavigate();
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
 
@@ -76,57 +79,76 @@ function App() {
   ];
 
   return (
-    <div>
-      <header className="navbar">
-        <h1>Star Team Movies</h1>
-        <a href="#movies">See a Movie</a>
-      </header>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div>
+            <header className="navbar">
+              <h1>Star Team Movies</h1>
+              <a href="#movies">See a Movie</a>
+            </header>
 
-      <main id="movies">
-        <div className="movie-list">
-          {movies.map((movie) => (
-            <div className="movie-card" key={movie.id}>
-              <img src={movie.poster} alt={movie.title} />
-              <h3>{movie.title}</h3>
-              <p>{movie.genre}</p>
+            <main id="movies">
+              <div className="movie-list">
+                {movies.map((movie) => (
+                  <div className="movie-card" key={movie.id}>
+                    <img src={movie.poster} alt={movie.title} />
+                    <h3>{movie.title}</h3>
+                    <p>{movie.genre}</p>
 
-              <button onClick={() => setSelectedMovie(movie)}>
-                {selectedMovie?.id === movie.id ? "Selected" : "Get Tickets"}
-              </button>
-            </div>
-          ))}
-        </div>
-
-        {selectedMovie && (
-          <div className="selection">
-            <h2>Select a Showtime</h2>
-
-            <div className="selection-content">
-              <img src={selectedMovie.poster} alt={selectedMovie.title} />
-
-              <div className="selection-details">
-                <h2>{selectedMovie.title}</h2>
-                <p>{selectedMovie.genre}</p>
-
-                <hr />
-
-                <h3>Available Times</h3>
-
-                <ShowtimeSelection
-                  movie={selectedMovie}
-                  onSelectTime={setSelectedTime}
-                />
-                {selectedTime && (
-                  <p>
-                    You have selected {selectedTime} for {selectedMovie.title}.
-                  </p>
-                )}
+                    <button onClick={() => setSelectedMovie(movie)}>
+                      {selectedMovie?.id === movie.id
+                        ? "Selected"
+                        : "Get Tickets"}
+                    </button>
+                  </div>
+                ))}
               </div>
-            </div>
+
+              {selectedMovie && (
+                <div className="selection">
+                  <h2>Select a Showtime</h2>
+
+                  <div className="selection-content">
+                    <img src={selectedMovie.poster} alt={selectedMovie.title} />
+
+                    <div className="selection-details">
+                      <h2>{selectedMovie.title}</h2>
+                      <p>{selectedMovie.genre}</p>
+
+                      <hr />
+
+                      <h3>Available Times</h3>
+
+                      <ShowtimeSelection
+                        movie={selectedMovie}
+                        onSelectTime={(time) =>
+                          navigate("/seats", {
+                            state: {
+                              movie: selectedMovie,
+                              time: time,
+                            },
+                          })
+                        }
+                      />
+                      {selectedTime && (
+                        <p>
+                          You have selected {selectedTime} for{" "}
+                          {selectedMovie.title}.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </main>
           </div>
-        )}
-      </main>
-    </div>
+        }
+      />
+
+      <Route path="/seats" element={<SeatSelection />} />
+    </Routes>
   );
 }
 
