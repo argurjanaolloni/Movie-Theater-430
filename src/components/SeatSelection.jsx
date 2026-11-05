@@ -7,6 +7,8 @@ function SeatSelection() {
 
   const movie = state?.movie;
   const time = state?.time;
+  const ticketPrice = 12;
+  const totalPrice = selectedSeats.length * ticketPrice;
 
   const seats = [
     "A1",
@@ -42,32 +44,89 @@ function SeatSelection() {
 
   return (
     <main className="seat-selection">
-      <Link to="/">← Back to movies</Link>
+      <Link className="back-link" to="/">
+        ← Back to movies
+      </Link>
 
-      <h1>Select Your Seats</h1>
-      <h2>{movie.title}</h2>
-      <p>Showtime: {time}</p>
+      <header className="seat-header">
+        <p className="seat-eyebrow">STAR TEAM MOVIES</p>
+        <h1>Select Your Seats</h1>
+        <p>
+          {movie.title} • {time}
+        </p>
+      </header>
 
-      <p>Screen</p>
+      <div className="booking-layout">
+        <section className="auditorium" aria-label="Choose seats">
+          <div className="theater-screen">SCREEN</div>
 
-      <div className="seat-grid">
-        {seats.map((seat) => (
-          <button
-            key={seat}
-            type="button"
-            className={selectedSeats.includes(seat) ? "seat selected" : "seat"}
-            aria-pressed={selectedSeats.includes(seat)}
-            onClick={() => toggleSeat(seat)}
-          >
-            {seat}
-          </button>
-        ))}
+          <div className="seat-grid">
+            {seats.map((seat) => (
+              <button
+                key={seat}
+                type="button"
+                className={
+                  selectedSeats.includes(seat) ? "seat selected" : "seat"
+                }
+                aria-label={`Seat ${seat}`}
+                aria-pressed={selectedSeats.includes(seat)}
+                onClick={() => toggleSeat(seat)}
+              >
+                {seat}
+              </button>
+            ))}
+          </div>
+
+          <div className="seat-legend">
+            <span>
+              <span className="legend-box available" />
+              Available
+            </span>
+
+            <span>
+              <span className="legend-box chosen" />
+              Selected
+            </span>
+          </div>
+        </section>
+
+        <aside className="booking-summary">
+          <h2>Booking Summary</h2>
+
+          <p className="summary-movie">{movie.title}</p>
+
+          <dl>
+            <div>
+              <dt>Showtime</dt>
+              <dd>{time}</dd>
+            </div>
+
+            <div>
+              <dt>Seats</dt>
+              <dd>
+                {selectedSeats.length > 0
+                  ? selectedSeats.join(", ")
+                  : "None selected"}
+              </dd>
+            </div>
+
+            <div>
+              <dt>Tickets</dt>
+              <dd>{selectedSeats.length}</dd>
+            </div>
+
+            <div>
+              <dt>Price per ticket</dt>
+              <dd>${ticketPrice.toFixed(2)}</dd>
+            </div>
+
+            <div className="summary-total">
+              <dt>Total</dt>
+              <dd>${totalPrice.toFixed(2)}</dd>
+            </div>
+          </dl>
+        </aside>
       </div>
-
-      <p>
-        Selected seats:{" "}
-        {selectedSeats.length > 0 ? selectedSeats.join(", ") : "None"}
-      </p>
     </main>
   );
 }
