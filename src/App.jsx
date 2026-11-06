@@ -4,6 +4,7 @@ import "./App.css";
 import ShowtimeSelection from "./components/ShowtimeSelection.jsx";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import SeatSelection from "./components/SeatSelection.jsx";
+import Checkout from "./components/Checkout.jsx";
 
 function App() {
   const navigate = useNavigate();
@@ -148,6 +149,7 @@ function App() {
       />
 
       <Route path="/seats" element={<SeatSelection />} />
+      <Route path="/Checkout" element={<Checkout />} />
     </Routes>
   );
 }

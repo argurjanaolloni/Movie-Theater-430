@@ -199,6 +199,74 @@ main.seat-selection {
   color: #ff5263;
 }
 
+main.checkout-page {
+  display: block;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+.confirmation-card {
+  text-align: center;
+}
+
+.confirmation-card h1 {
+  margin-bottom: 12px;
+  font-size: clamp(28px, 5vw, 38px);
+}
+
+.confirmation-card > p {
+  color: #bbbbbb;
+}
+
+.confirmation-card .booking-summary {
+  margin: 28px 0;
+  text-align: left;
+}
+
+.checkout-page .booking-summary h2 {
+  margin: 0 0 20px;
+  font-size: 24px;
+}
+
+.checkout-button {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #c8102e;
+  color: #ffffff;
+  font: inherit;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background: #a60d26;
+}
+
+.checkout-button:disabled {
+  background: #444444;
+  color: #bbbbbb;
+  cursor: not-allowed;
+}
+
+.checkout-button:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.confirmation-card .demo-note {
+  margin-top: 20px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 @media (max-width: 760px) {
   .booking-layout {
     grid-template-columns: 1fr;

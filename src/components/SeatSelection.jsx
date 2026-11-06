@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function SeatSelection() {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   const movie = state?.movie;
@@ -125,6 +126,22 @@ function SeatSelection() {
               <dd>${totalPrice.toFixed(2)}</dd>
             </div>
           </dl>
+          <button
+            className="checkout-button"
+            disabled={selectedSeats.length === 0}
+            onClick={() =>
+              navigate("/Checkout", {
+                state: {
+                  movie,
+                  time,
+                  selectedSeats,
+                  ticketPrice,
+                },
+              })
+            }
+          >
+            Continue to Checkout
+          </button>
         </aside>
       </div>
     </main>
