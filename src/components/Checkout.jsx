@@ -30,7 +30,7 @@ function Checkout() {
 
         <p>
           {confirmed
-            ? "Your demo booking is complete. Enjoy the movie!"
+            ? "Your booking is complete. Enjoy the movie!"
             : "Review your details before confirming."}
         </p>
 
@@ -72,10 +72,6 @@ function Checkout() {
             Confirm Booking
           </button>
         )}
-
-        <p className="demo-note">
-          Demo only — no payment is collected or seats reserved.
-        </p>
       </section>
     </main>
   );
