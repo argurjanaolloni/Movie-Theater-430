@@ -43,13 +43,13 @@ function App() {
             <main id="movies">
               <div className="movie-list">
                 {movies.map((movie) => (
-                  <div className="movie-card" key={movie.id}>
+                  <div className="movie-card" key={movie.movieid}>
                     <img src={movie.poster} alt={movie.title} />
                     <h3>{movie.title}</h3>
                     <p>{movie.genre}</p>
 
                     <button onClick={() => setSelectedMovie(movie)}>
-                      {selectedMovie?.id === movie.id
+                      {selectedMovie?.id === movie.movieid
                         ? "Selected"
                         : "Get Tickets"}
                     </button>
@@ -74,11 +74,12 @@ function App() {
 
                       <ShowtimeSelection
                         movie={selectedMovie}
-                        onSelectTime={(time) =>
+                        onSelectTime={(showtime) =>
                           navigate("/seats", {
                             state: {
                               movie: selectedMovie,
-                              time: time,
+                              time: showtime.time,
+                              showtimeid: showtime.showtimeid,
                             },
                           })
                         }

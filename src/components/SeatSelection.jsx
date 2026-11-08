@@ -1,40 +1,63 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "../supabaseClient";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function SeatSelection() {
   const { state } = useLocation();
   const navigate = useNavigate();
+
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [tickets, setTickets] = useState([]);
 
   const movie = state?.movie;
   const time = state?.time;
-  const ticketPrice = 12;
-  const totalPrice = selectedSeats.length * ticketPrice;
+  const showtimeid = state?.showtimeid;
 
-  const seats = [
-    "A1",
-    "A2",
-    "A3",
-    "A4",
-    "B1",
-    "B2",
-    "B3",
-    "B4",
-    "C1",
-    "C2",
-    "C3",
-    "C4",
-  ];
+  useEffect(() => {
+    if (!showtimeid) return;
 
-  function toggleSeat(seat) {
-    setSelectedSeats((previousSeats) =>
-      previousSeats.includes(seat)
-        ? previousSeats.filter((selectedSeat) => selectedSeat !== seat)
-        : [...previousSeats, seat],
-    );
+    async function getTickets() {
+      const { data, error } = await supabase
+        .from("ticket")
+        .select("*")
+        .eq("showtimeid", showtimeid)
+        .order("seat");
+
+      if (error) {
+        console.log(error.message);
+      } else {
+        setTickets(data ?? []);
+      }
+    }
+
+    getTickets();
+  }, [showtimeid]);
+
+  // Convert the database price into a number.
+  function getPrice(price) {
+    const number = Number(String(price ?? "").replace(/[$,\s]/g, ""));
+
+    return Number.isFinite(number) ? number : 0;
   }
 
-  if (!movie || !time) {
+  const selectedTickets = tickets.filter((ticket) =>
+    selectedSeats.includes(ticket.seat),
+  );
+
+  const totalPrice = selectedTickets.reduce(
+    (total, ticket) => total + getPrice(ticket.price),
+    0,
+  );
+
+  function toggleSeat(seat) {
+    if (selectedSeats.includes(seat)) {
+      setSelectedSeats(selectedSeats.filter((item) => item !== seat));
+    } else {
+      setSelectedSeats([...selectedSeats, seat]);
+    }
+  }
+
+  if (!movie || !time || !showtimeid) {
     return (
       <main>
         <p>Select a movie and showtime first.</p>
@@ -62,18 +85,17 @@ function SeatSelection() {
           <div className="theater-screen">SCREEN</div>
 
           <div className="seat-grid">
-            {seats.map((seat) => (
+            {tickets.map((ticket) => (
               <button
-                key={seat}
+                key={ticket.ticketid}
                 type="button"
+                disabled={!ticket.isavailable}
                 className={
-                  selectedSeats.includes(seat) ? "seat selected" : "seat"
+                  selectedSeats.includes(ticket.seat) ? "seat selected" : "seat"
                 }
-                aria-label={`Seat ${seat}`}
-                aria-pressed={selectedSeats.includes(seat)}
-                onClick={() => toggleSeat(seat)}
+                onClick={() => toggleSeat(ticket.seat)}
               >
-                {seat}
+                {ticket.seat} — ${getPrice(ticket.price).toFixed(2)}
               </button>
             ))}
           </div>
@@ -116,16 +138,12 @@ function SeatSelection() {
               <dd>{selectedSeats.length}</dd>
             </div>
 
-            <div>
-              <dt>Price per ticket</dt>
-              <dd>${ticketPrice.toFixed(2)}</dd>
-            </div>
-
             <div className="summary-total">
               <dt>Total</dt>
               <dd>${totalPrice.toFixed(2)}</dd>
             </div>
           </dl>
+
           <button
             className="checkout-button"
             disabled={selectedSeats.length === 0}
@@ -134,8 +152,10 @@ function SeatSelection() {
                 state: {
                   movie,
                   time,
+                  showtimeid,
                   selectedSeats,
-                  ticketPrice,
+                  selectedTickets,
+                  totalPrice,
                 },
               })
             }
