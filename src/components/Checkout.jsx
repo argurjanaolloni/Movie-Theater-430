@@ -1,16 +1,50 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 
 function Checkout() {
   const { state } = useLocation();
+  const navigate = useNavigate();
+
   const [confirmed, setConfirmed] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const movie = state?.movie;
   const time = state?.time;
   const selectedSeats = state?.selectedSeats ?? [];
-  const ticketPrice = state?.ticketPrice ?? 12;
+  const showtimeid = state?.showtimeid;
 
-  const totalPrice = selectedSeats.length * ticketPrice;
+  // use price from seatselection.jsx pg
+  const totalPrice = Number(state?.totalPrice ?? 0);
+
+  async function confirmBooking() {
+    setSaving(true);
+    setErrorMessage("");
+
+    // Marks every seat as sold in one step.
+    // If even one seat was already taken, nothing gets booked.
+    const { error } = await supabase.rpc("book_seats", {
+      p_showtimeid: showtimeid,
+      p_seats: selectedSeats,
+    });
+
+    setSaving(false);
+
+    if (error) {
+      if (error.message.includes("seat_taken")) {
+        setErrorMessage(
+          "Sorry, one or more of your seats was just taken. Please pick again.",
+        );
+      } else {
+        setErrorMessage("Something went wrong. Please try again.");
+        console.log(error.message);
+      }
+      return;
+    }
+
+    setConfirmed(true);
+  }
 
   if (!movie || !time || selectedSeats.length === 0) {
     return (
@@ -60,17 +94,34 @@ function Checkout() {
           </dl>
         </div>
 
+        {errorMessage && (
+          <>
+            <p className="checkout-error">{errorMessage}</p>
+            <button
+              className="checkout-button"
+              onClick={() =>
+                navigate("/seats", { state: { movie, time, showtimeid } })
+              }
+            >
+              Choose Different Seats
+            </button>
+          </>
+        )}
+
         {confirmed ? (
           <Link className="checkout-button" to="/">
             Back to Movies
           </Link>
         ) : (
-          <button
-            className="checkout-button"
-            onClick={() => setConfirmed(true)}
-          >
-            Confirm Booking
-          </button>
+          !errorMessage && (
+            <button
+              className="checkout-button"
+              onClick={confirmBooking}
+              disabled={saving}
+            >
+              {saving ? "Booking..." : "Confirm Booking"}
+            </button>
+          )
         )}
       </section>
     </main>

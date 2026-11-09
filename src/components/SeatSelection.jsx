@@ -90,6 +90,7 @@ function SeatSelection() {
                 key={ticket.ticketid}
                 type="button"
                 disabled={!ticket.isavailable}
+                title={ticket.isavailable ? "" : "This seat is taken"}
                 className={
                   selectedSeats.includes(ticket.seat) ? "seat selected" : "seat"
                 }
@@ -109,6 +110,11 @@ function SeatSelection() {
             <span>
               <span className="legend-box chosen" />
               Selected
+            </span>
+
+            <span>
+              <span className="legend-box taken" />
+              Taken
             </span>
           </div>
         </section>

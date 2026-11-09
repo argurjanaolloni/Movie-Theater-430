@@ -50,7 +50,7 @@ main.seat-selection {
   font-size: clamp(28px, 5vw, 42px);
 }
 
-.seat-header > p:last-child {
+.seat-header>p:last-child {
   color: #bbbbbb;
 }
 
@@ -128,7 +128,7 @@ main.seat-selection {
   font-size: 13px;
 }
 
-.seat-legend > span {
+.seat-legend>span {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -148,6 +148,31 @@ main.seat-selection {
 .legend-box.chosen {
   background: #c8102e;
   border: 2px solid #ff5263;
+}
+
+.legend-box.taken {
+  background: #3a3a3a;
+  border: 2px solid #555555;
+  opacity: 0.5;
+}
+
+/* sold seats */
+.seat-selection .seat:disabled {
+  background: #3a3a3a;
+  border-color: #555555;
+  color: #777777;
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.seat-selection .seat:disabled:hover {
+  border-color: #555555;
+}
+
+.checkout-error {
+  color: #ff5263;
+  font-weight: bold;
 }
 
 .booking-summary {
@@ -170,7 +195,7 @@ main.seat-selection {
   margin: 0;
 }
 
-.booking-summary dl > div {
+.booking-summary dl>div {
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -216,7 +241,7 @@ main.checkout-page {
   font-size: clamp(28px, 5vw, 38px);
 }
 
-.confirmation-card > p {
+.confirmation-card>p {
   color: #bbbbbb;
 }
 
