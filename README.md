@@ -1,4 +1,4 @@
-### Link to website:
+## Link to website
 https://splendorous-gaufre-77e1d1.netlify.app
 
 ## Running it on your computer
@@ -46,7 +46,7 @@ The site reads movies, showtimes and seats from our Supabase project
 bookings you make while testing are saved to that shared database.
 
 
-### Movie-Theater-430
+## Movie-Theater-430
 website right now:
 <img width="1906" height="1022" alt="image" src="https://github.com/user-attachments/assets/6fb9a40c-aac3-4714-9643-a228adaf94ca" />
 <img width="1892" height="1023" alt="image" src="https://github.com/user-attachments/assets/d7daada1-4a45-4941-afc7-11dd29e3c513" />
