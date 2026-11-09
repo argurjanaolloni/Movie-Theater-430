@@ -69,7 +69,7 @@ function Checkout() {
         </p>
 
         <div className="booking-summary">
-          <h2>{movie.title}</h2>
+          <h2>{movie.name}</h2>
 
           <dl>
             <div>

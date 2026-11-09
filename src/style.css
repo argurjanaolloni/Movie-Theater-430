@@ -125,7 +125,7 @@ hr {
   flex-direction: column;
 }
 
-.selection > h2 {
+.selection>h2 {
   color: #ffffff;
   font-size: 24px;
   margin: 0 0 25px;
@@ -194,6 +194,34 @@ hr {
 .selection button:hover {
   background-color: #2563eb;
   border-color: #60a5fa;
+}
+
+/* Lets the close button sit in the panels corner */
+.selection {
+  position: relative;
+}
+
+/* ".selection" in front so this beats the blue ".selection button" style */
+.selection .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #aaaaaa;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.selection .close-button:hover {
+  background: #2a2a2a;
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
 }
 
 /* Mobile */

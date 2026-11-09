@@ -76,7 +76,7 @@ function SeatSelection() {
         <p className="seat-eyebrow">STAR TEAM MOVIES</p>
         <h1>Select Your Seats</h1>
         <p>
-          {movie.title} • {time}
+          {movie.name} • {time}
         </p>
       </header>
 
@@ -122,7 +122,7 @@ function SeatSelection() {
         <aside className="booking-summary">
           <h2>Booking Summary</h2>
 
-          <p className="summary-movie">{movie.title}</p>
+          <p className="summary-movie">{movie.name}</p>
 
           <dl>
             <div>

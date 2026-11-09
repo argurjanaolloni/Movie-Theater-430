@@ -44,8 +44,8 @@ function App() {
               <div className="movie-list">
                 {movies.map((movie) => (
                   <div className="movie-card" key={movie.movieid}>
-                    <img src={movie.poster} alt={movie.title} />
-                    <h3>{movie.title}</h3>
+                    <img src={movie.poster} alt={movie.name} />
+                    <h3>{movie.name}</h3>
                     <p>{movie.genre}</p>
 
                     <button onClick={() => setSelectedMovie(movie)}>
@@ -59,13 +59,22 @@ function App() {
 
               {selectedMovie && (
                 <div className="selection">
+                  <button
+                    type="button"
+                    className="close-button"
+                    aria-label="Close"
+                    onClick={() => setSelectedMovie(null)}
+                  >
+                    ×
+                  </button>
+
                   <h2>Select a Showtime</h2>
 
                   <div className="selection-content">
-                    <img src={selectedMovie.poster} alt={selectedMovie.title} />
+                    <img src={selectedMovie.poster} alt={selectedMovie.name} />
 
                     <div className="selection-details">
-                      <h2>{selectedMovie.title}</h2>
+                      <h2>{selectedMovie.name}</h2>
                       <p>{selectedMovie.genre}</p>
 
                       <hr />
@@ -87,7 +96,7 @@ function App() {
                       {selectedTime && (
                         <p>
                           You have selected {selectedTime} for{" "}
-                          {selectedMovie.title}.
+                          {selectedMovie.name}.
                         </p>
                       )}
                     </div>
