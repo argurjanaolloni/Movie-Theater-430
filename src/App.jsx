@@ -200,7 +200,6 @@ function App() {
               <h1>Star Team Movies</h1>
 
               <a href="#movies">See a Movie</a>
-              <a href="#food">Food & Drinks</a>
 
               {role === "employee" && (
                 <a href="#employee">Employee Dashboard</a>
@@ -283,17 +282,29 @@ function App() {
                       <p>{selectedMovie.genre}</p>
 
                       <hr />
-                      <h3>Movie Format</h3>
 
-                      <select
-                        value={selectedFormat}
-                        onChange={(e) => setSelectedFormat(e.target.value)}
-                      >
-                        <option value="Standard">Standard</option>
-                        <option value="IMAX">IMAX</option>
-                        <option value="3D">3D</option>
-                        <option value="Dolby">Dolby</option>
-                      </select>
+                      <div className="movie-format-section">
+                        <label htmlFor="movie-format">Movie Format</label>
+
+                        <div className="format-select-wrapper">
+                          <select
+                            id="movie-format"
+                            className="movie-format-select"
+                            value={selectedFormat}
+                            onChange={(e) => setSelectedFormat(e.target.value)}
+                          >
+                            <option value="Standard">Standard 2D</option>
+                            <option value="IMAX">IMAX</option>
+                            <option value="3D">RealD 3D</option>
+                            <option value="Dolby">Dolby Cinema</option>
+                          </select>
+                        </div>
+
+                        <p className="format-description">
+                          Choose your preferred viewing experience.
+                        </p>
+                      </div>
+
                       <h3>Available Times</h3>
 
                       <ShowtimeSelection
@@ -328,33 +339,7 @@ function App() {
                 </div>
               )}
             </main>
-            <section className="feature-panel" id="food">
-              <h2>Food & Drinks</h2>
 
-              {foods
-                .filter((item) => item.in_stock)
-                .map((item) => (
-                  <div key={item.id}>
-                    <h3>{item["food/beverage"]}</h3>
-                    <p>${Number(item.price).toFixed(2)}</p>
-
-                    <button onClick={() => setSnackCart([...snackCart, item])}>
-                      Add to Cart
-                    </button>
-                  </div>
-                ))}
-
-              <h3>Your Snack Cart</h3>
-
-              <p>{snackCart.length} items selected</p>
-
-              <p>
-                Total: $
-                {snackCart
-                  .reduce((total, item) => total + Number(item.price), 0)
-                  .toFixed(2)}
-              </p>
-            </section>
             {role === "employee" && (
               <section className="feature-panel" id="employee">
                 <h2>Employee Dashboard</h2>

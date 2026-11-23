@@ -478,6 +478,86 @@ main.checkout-page {
   cursor: pointer;
 }
 
+/* Movie Format Section */
+.movie-format-section {
+  margin: 25px 0;
+  width: 100%;
+}
+
+.movie-format-section label {
+  display: block;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* Dropdown Container */
+.format-select-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+/* Custom Dropdown */
+.movie-format-select {
+  width: 100%;
+  padding: 14px 40px 14px 16px;
+
+  background: #1c1c1c;
+  color: #ffffff;
+
+  border: 1px solid #444;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+
+  appearance: none;
+  transition: 0.2s ease;
+}
+
+/* Custom Arrow */
+.format-select-wrapper::after {
+  content: "";
+  position: absolute;
+  right: 17px;
+  top: 45%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #ff5263;
+  border-bottom: 2px solid #ff5263;
+  transform: translateY(-50%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Hover */
+.movie-format-select:hover {
+  border-color: #c8102e;
+  background: #242424;
+}
+
+/* When Selected */
+.movie-format-select:focus {
+  outline: none;
+  border-color: #ff5263;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.2);
+}
+
+/* Dropdown Options */
+.movie-format-select option {
+  background: #181818;
+  color: white;
+}
+
+/* Description */
+.format-description {
+  margin-top: 10px;
+  color: #999;
+  font-size: 13px;
+}
+
 @media (max-width: 760px) {
   .booking-layout {
     grid-template-columns: 1fr;
