@@ -9,11 +9,18 @@ import SeatSelection from "./components/SeatSelection.jsx";
 import Checkout from "./components/Checkout.jsx";
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
+  const [role, setRole] = useState("customer");
+
   const navigate = useNavigate();
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
 
   const [movies, setMovies] = useState([]);
+  const [selectedFormat, setSelectedFormat] = useState("Standard");
 
   const [foods, setFoods] = useState([]);
   const [snackCart, setSnackCart] = useState([]);
@@ -45,6 +52,52 @@ function App() {
 
     fetchFoods();
   }, []);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  async function signUp() {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+
+    setAuthMessage(
+      error
+        ? error.message
+        : "Account created! Check your email if confirmation is required.",
+    );
+  }
+
+  async function logIn() {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setAuthMessage(error ? error.message : "Logged in successfully!");
+  }
+
+  async function logOut() {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      setAuthMessage(error.message);
+    } else {
+      setAuthMessage("Logged out.");
+    }
+  }
 
   return (
     <Routes>
@@ -82,7 +135,7 @@ function App() {
                     aria-label="Close"
                     onClick={() => setSelectedMovie(null)}
                   >
-                    ×
+                    X
                   </button>
 
                   <h2>Select a Showtime</h2>
@@ -95,20 +148,41 @@ function App() {
                       <p>{selectedMovie.genre}</p>
 
                       <hr />
+                      <h3>Movie Format</h3>
 
+                      <select
+                        value={selectedFormat}
+                        onChange={(e) => setSelectedFormat(e.target.value)}
+                      >
+                        <option value="Standard">Standard</option>
+                        <option value="IMAX">IMAX</option>
+                        <option value="3D">3D</option>
+                        <option value="Dolby">Dolby</option>
+                      </select>
                       <h3>Available Times</h3>
 
                       <ShowtimeSelection
                         movie={selectedMovie}
-                        onSelectTime={(showtime) =>
+                        onSelectTime={(showtime) => {
+                          if (!user) {
+                            setAuthMessage(
+                              "Please log in to select a showtime.",
+                            );
+
+                            document
+                              .getElementById("account")
+                              ?.scrollIntoView();
+                            return;
+                          }
                           navigate("/seats", {
                             state: {
                               movie: selectedMovie,
                               time: showtime.time,
                               showtimeid: showtime.showtimeid,
+                              format: selectedFormat,
                             },
-                          })
-                        }
+                          });
+                        }}
                       />
                       {selectedTime && (
                         <p>
@@ -147,6 +221,40 @@ function App() {
                   .reduce((total, item) => total + Number(item.price), 0)
                   .toFixed(2)}
               </p>
+            </section>
+            <section className="feature-panel" id="account">
+              <h2>My Account</h2>
+
+              {user ? (
+                <div>
+                  <p>Logged in as: {user.email}</p>
+                  <p>Role: {role}</p>
+
+                  <button onClick={logOut}>Log Out</button>
+                </div>
+              ) : (
+                <div>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+
+                  <button onClick={signUp}>Sign Up</button>
+
+                  <button onClick={logIn}>Log In</button>
+                </div>
+              )}
+
+              <p>{authMessage}</p>
             </section>
           </div>
         }
