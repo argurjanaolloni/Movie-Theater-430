@@ -399,6 +399,85 @@ main.checkout-page {
   overflow-wrap: anywhere;
 }
 
+/* Dark background behind popup */
+.food-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Popup box */
+.food-popup {
+  background: #181818;
+  border: 1px solid #444;
+  padding: 30px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 450px;
+  max-height: 85vh;
+  overflow-y: auto;
+  color: white;
+}
+
+.food-popup h2 {
+  text-align: center;
+  margin-top: 0;
+}
+
+/* Each food item */
+.food-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid #333;
+}
+
+.food-item h3 {
+  margin: 0 0 6px;
+}
+
+.food-item p {
+  margin: 0;
+  color: #bbb;
+}
+
+/* Quantity buttons */
+.food-quantity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.food-quantity button {
+  background: #8a1e1e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.food-quantity button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.skip-food {
+  display: block;
+  margin: 15px auto 0;
+  background: none;
+  border: none;
+  color: #bbb;
+  cursor: pointer;
+}
+
 @media (max-width: 760px) {
   .booking-layout {
     grid-template-columns: 1fr;
