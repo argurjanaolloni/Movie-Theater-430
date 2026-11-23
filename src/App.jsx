@@ -15,6 +15,9 @@ function App() {
 
   const [movies, setMovies] = useState([]);
 
+  const [foods, setFoods] = useState([]);
+  const [snackCart, setSnackCart] = useState([]);
+
   useEffect(() => {
     async function fetchMovies() {
       const { data, error } = await supabase.from("movie").select("*");
@@ -27,6 +30,20 @@ function App() {
     }
 
     fetchMovies();
+  }, []);
+
+  useEffect(() => {
+    async function fetchFoods() {
+      const { data, error } = await supabase.from("F&B").select("*");
+
+      if (error) {
+        console.error(error.message);
+      } else {
+        setFoods(data);
+      }
+    }
+
+    fetchFoods();
   }, []);
 
   return (
@@ -104,6 +121,33 @@ function App() {
                 </div>
               )}
             </main>
+            <section className="feature-panel" id="food">
+              <h2>Food & Drinks</h2>
+
+              {foods
+                .filter((item) => item.in_stock)
+                .map((item) => (
+                  <div key={item.id}>
+                    <h3>{item["food/beverage"]}</h3>
+                    <p>${Number(item.price).toFixed(2)}</p>
+
+                    <button onClick={() => setSnackCart([...snackCart, item])}>
+                      Add to Cart
+                    </button>
+                  </div>
+                ))}
+
+              <h3>Your Snack Cart</h3>
+
+              <p>{snackCart.length} items selected</p>
+
+              <p>
+                Total: $
+                {snackCart
+                  .reduce((total, item) => total + Number(item.price), 0)
+                  .toFixed(2)}
+              </p>
+            </section>
           </div>
         }
       />
