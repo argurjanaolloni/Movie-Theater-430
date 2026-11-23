@@ -50,7 +50,7 @@ main.seat-selection {
   font-size: clamp(28px, 5vw, 42px);
 }
 
-.seat-header>p:last-child {
+.seat-header > p:last-child {
   color: #bbbbbb;
 }
 
@@ -128,7 +128,7 @@ main.seat-selection {
   font-size: 13px;
 }
 
-.seat-legend>span {
+.seat-legend > span {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -195,7 +195,7 @@ main.seat-selection {
   margin: 0;
 }
 
-.booking-summary dl>div {
+.booking-summary dl > div {
   display: flex;
   justify-content: space-between;
   gap: 16px;
@@ -241,7 +241,7 @@ main.checkout-page {
   font-size: clamp(28px, 5vw, 38px);
 }
 
-.confirmation-card>p {
+.confirmation-card > p {
   color: #bbbbbb;
 }
 
@@ -290,6 +290,49 @@ main.checkout-page {
   margin-top: 20px;
   font-size: 12px;
   line-height: 1.5;
+}
+
+.feature-panel {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 24px;
+  background: #141414;
+  border: 1px solid #333;
+  border-radius: 10px;
+}
+
+.feature-panel h2 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.feature-panel input,
+.feature-panel select {
+  padding: 12px;
+  margin: 8px;
+  background: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+.feature-panel button {
+  padding: 10px 15px;
+  margin: 8px;
+  background: #8a1e1e;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.feature-panel button:hover {
+  background: #b32424;
+}
+
+.feature-panel > div {
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
 }
 
 @media (max-width: 760px) {

@@ -67,6 +67,26 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
 
+  useEffect(() => {
+    setRole("customer");
+
+    if (!user) return;
+
+    async function getRole() {
+      const { data, error } = await supabase
+        .from("cinema_profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+      if (!error && data) {
+        setRole(data.role);
+      }
+    }
+
+    getRole();
+  }, [user?.id]);
+
   async function signUp() {
     const { error } = await supabase.auth.signUp({
       email,
@@ -99,6 +119,71 @@ function App() {
     }
   }
 
+  async function editMovie(movie) {
+    const name = prompt("New movie name:", movie.name);
+
+    if (name === null || !name.trim()) return;
+
+    const { error } = await supabase
+      .from("movie")
+      .update({ name: name.trim() })
+      .eq("movieid", movie.movieid);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    setMovies(
+      movies.map((m) =>
+        m.movieid === movie.movieid ? { ...m, name: name.trim() } : m,
+      ),
+    );
+  }
+
+  async function editFood(item) {
+    const input = prompt("New price:", item.price);
+
+    if (input === null || input.trim() === "") return;
+
+    const price = Number(input);
+
+    if (!Number.isFinite(price) || price < 0) {
+      alert("Enter a valid price.");
+      return;
+    }
+
+    const { error } = await supabase
+      .from("F&B")
+      .update({ price })
+      .eq("id", item.id);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    setFoods(foods.map((f) => (f.id === item.id ? { ...f, price } : f)));
+  }
+
+  async function toggleStock(item) {
+    const { error } = await supabase
+      .from("F&B")
+      .update({ in_stock: !item.in_stock })
+      .eq("id", item.id);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    setFoods(
+      foods.map((f) =>
+        f.id === item.id ? { ...f, in_stock: !item.in_stock } : f,
+      ),
+    );
+  }
+
   return (
     <Routes>
       <Route
@@ -107,7 +192,14 @@ function App() {
           <div>
             <header className="navbar">
               <h1>Star Team Movies</h1>
+
               <a href="#movies">See a Movie</a>
+              <a href="#food">Food & Drinks</a>
+              <a href="#account">My Account</a>
+
+              {role === "employee" && (
+                <a href="#employee">Employee Dashboard</a>
+              )}
             </header>
 
             <main id="movies">
@@ -256,6 +348,37 @@ function App() {
 
               <p>{authMessage}</p>
             </section>
+            {role === "employee" && (
+              <section className="feature-panel" id="employee">
+                <h2>Employee Dashboard</h2>
+
+                <h3>Edit Movies</h3>
+
+                {movies.map((movie) => (
+                  <div key={movie.movieid}>
+                    <p>{movie.name}</p>
+
+                    <button onClick={() => editMovie(movie)}>Edit Movie</button>
+                  </div>
+                ))}
+
+                <h3>Edit Food & Drinks</h3>
+
+                {foods.map((item) => (
+                  <div key={item.id}>
+                    <p>
+                      {item["food/beverage"]} - ${Number(item.price).toFixed(2)}
+                    </p>
+
+                    <button onClick={() => editFood(item)}>Edit Price</button>
+
+                    <button onClick={() => toggleStock(item)}>
+                      {item.in_stock ? "Mark Out of Stock" : "Mark In Stock"}
+                    </button>
+                  </div>
+                ))}
+              </section>
+            )}
           </div>
         }
       />
