@@ -15,6 +15,8 @@ function App() {
   const [authMessage, setAuthMessage] = useState("");
   const [role, setRole] = useState("customer");
 
+  const [showLogin, setShowLogin] = useState(false);
+
   const navigate = useNavigate();
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -106,6 +108,10 @@ function App() {
       password,
     });
 
+    if (!error) {
+      setShowLogin(false);
+    }
+
     setAuthMessage(error ? error.message : "Logged in successfully!");
   }
 
@@ -195,11 +201,48 @@ function App() {
 
               <a href="#movies">See a Movie</a>
               <a href="#food">Food & Drinks</a>
-              <a href="#account">My Account</a>
 
               {role === "employee" && (
                 <a href="#employee">Employee Dashboard</a>
               )}
+
+              <div className="account-area">
+                {user ? (
+                  <>
+                    <span>{user.email}</span>
+                    <button onClick={logOut}>Log Out</button>
+                  </>
+                ) : (
+                  <button onClick={() => setShowLogin(!showLogin)}>
+                    Log In / Sign Up
+                  </button>
+                )}
+
+                {showLogin && !user && (
+                  <div className="login-popup">
+                    <h2>Welcome Back</h2>
+
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <button onClick={logIn}>Log In</button>
+                    <button onClick={signUp}>Sign Up</button>
+
+                    <p>{authMessage}</p>
+                  </div>
+                )}
+              </div>
             </header>
 
             <main id="movies">
@@ -261,9 +304,7 @@ function App() {
                               "Please log in to select a showtime.",
                             );
 
-                            document
-                              .getElementById("account")
-                              ?.scrollIntoView();
+                            setShowLogin(true);
                             return;
                           }
                           navigate("/seats", {
@@ -313,40 +354,6 @@ function App() {
                   .reduce((total, item) => total + Number(item.price), 0)
                   .toFixed(2)}
               </p>
-            </section>
-            <section className="feature-panel" id="account">
-              <h2>My Account</h2>
-
-              {user ? (
-                <div>
-                  <p>Logged in as: {user.email}</p>
-                  <p>Role: {role}</p>
-
-                  <button onClick={logOut}>Log Out</button>
-                </div>
-              ) : (
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-
-                  <button onClick={signUp}>Sign Up</button>
-
-                  <button onClick={logIn}>Log In</button>
-                </div>
-              )}
-
-              <p>{authMessage}</p>
             </section>
             {role === "employee" && (
               <section className="feature-panel" id="employee">

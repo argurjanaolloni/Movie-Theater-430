@@ -335,6 +335,70 @@ main.checkout-page {
   border-bottom: 1px solid #333;
 }
 
+/* Login position */
+.account-area {
+  margin-left: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Login button */
+.account-area button {
+  background: #8a1e1e;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Popup box */
+.login-popup {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 300px;
+  padding: 20px;
+  background: #181818;
+  border: 1px solid #444;
+  border-radius: 10px;
+  z-index: 100;
+  box-shadow: 0 8px 25px #0008;
+}
+
+/* Login heading */
+.login-popup h2 {
+  font-size: 22px;
+  margin: 0 0 20px;
+}
+
+/* Email and password */
+.login-popup input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #282828;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+/* Login and signup buttons */
+.login-popup button {
+  width: 100%;
+  margin: 5px 0;
+}
+
+/* Login messages */
+.login-popup p {
+  font-size: 13px;
+  color: #ff7777;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 760px) {
   .booking-layout {
     grid-template-columns: 1fr;
